@@ -1,6 +1,6 @@
 package ca.toropov.games.tank;
 
-import ca.toropov.games.tank.Graphics.DisplayManager;
+import ca.toropov.games.tank.graphics.DisplayManager;
 import ca.toropov.games.tank.entities.Entity;
 import ca.toropov.games.tank.entities.EntityRegister;
 import lombok.Getter;

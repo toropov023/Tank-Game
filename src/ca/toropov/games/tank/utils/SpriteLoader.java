@@ -1,7 +1,7 @@
 package ca.toropov.games.tank.utils;
 
 import ca.toropov.games.tank.TankGame;
-import ca.toropov.games.tank.Graphics.Sprite;
+import ca.toropov.games.tank.graphics.Sprite;
 import lombok.NonNull;
 
 import javax.imageio.ImageIO;

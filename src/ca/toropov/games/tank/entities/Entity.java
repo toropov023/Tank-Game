@@ -1,7 +1,7 @@
 package ca.toropov.games.tank.entities;
 
 import ca.toropov.games.tank.GameTask;
-import ca.toropov.games.tank.Graphics.Sprite;
+import ca.toropov.games.tank.graphics.Sprite;
 import ca.toropov.games.tank.TankGame;
 import lombok.Getter;
 import lombok.Setter;

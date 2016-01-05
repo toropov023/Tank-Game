@@ -1,4 +1,4 @@
-package ca.toropov.games.tank.Graphics;
+package ca.toropov.games.tank.graphics;
 
 import lombok.Getter;
 
