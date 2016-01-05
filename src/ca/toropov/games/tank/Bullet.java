@@ -27,7 +27,7 @@ public class Bullet {
         targetY = my;
         bOff = off;
         setMove();
-        speed = TankGame.bulletSpeed;
+        speed = TankGame_temp.bulletSpeed;
     }
 
     void setMove() {
@@ -38,12 +38,12 @@ public class Bullet {
         sx = speed * Math.cos(angle);
         sy = speed * Math.sin(angle);
 
-        if (targetX > TankGame.tx) {
+        if (targetX > TankGame_temp.tx) {
             dr1 = true;
             dr2 = false;
         }
 
-        if (targetX < TankGame.tx) {
+        if (targetX < TankGame_temp.tx) {
             dr2 = true;
             dr1 = false;
         }
@@ -55,7 +55,7 @@ public class Bullet {
         if (bx < -10 || by < -10) {
             bOff = true;
         }
-        if (bx > TankGame.WinWidth || by > TankGame.WinHeight) {
+        if (bx > TankGame_temp.WinWidth || by > TankGame_temp.WinHeight) {
             bOff = true;
         }
 
