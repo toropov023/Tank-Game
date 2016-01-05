@@ -13,7 +13,7 @@ public abstract class GameTask {
     private boolean dead;
 
     public void run(double delta) {
-        if(dead) {
+        if (dead) {
             TankGame.getInstance().getLogger().severe("Running a dead game task");
             return;
         }
@@ -30,5 +30,5 @@ public abstract class GameTask {
             tick(delta);
     }
 
-    abstract void tick(double delta);
+    public abstract void tick(double delta);
 }

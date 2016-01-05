@@ -17,7 +17,7 @@ public class SystemTimer {
         tasks.add(gameTask);
     }
 
-    public void remove(GameTask gameTask){
+    public void remove(GameTask gameTask) {
         tasks.remove(gameTask);
     }
 
