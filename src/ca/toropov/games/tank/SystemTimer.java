@@ -1,42 +1,51 @@
 package ca.toropov.games.tank;
 
-import lombok.RequiredArgsConstructor;
-
-import java.util.HashSet;
-import java.util.Set;
-
-@RequiredArgsConstructor
 public class SystemTimer {
-    private long lastLoopTime = System.nanoTime();
-    private final int FPS;
-    private final long OPTIMAL_TIME = 1000000000 / FPS;
+    final double GAME_HERTZ = 20.0;
+    final double TIME_BETWEEN_UPDATES = 1000000000 / GAME_HERTZ;
+    final int MAX_UPDATES_BEFORE_RENDER = 5;
+    double lastUpdateTime = System.nanoTime();
+    double lastRenderTime = System.nanoTime();
 
-    private Set<GameTask> tasks = new HashSet<>();
+    final double TARGET_FPS;
+    final double TARGET_TIME_BETWEEN_RENDERS;
 
-    public void add(GameTask gameTask) {
-        tasks.add(gameTask);
-    }
-
-    public void remove(GameTask gameTask) {
-        tasks.remove(gameTask);
+    public SystemTimer(int fps) {
+        this.TARGET_FPS = fps;
+        this.TARGET_TIME_BETWEEN_RENDERS = 1000000000 / TARGET_FPS;
     }
 
     public void startTicking() {
         while (TankGame.getInstance().isRunning()) {
+            double now = System.nanoTime();
+            int updateCount = 0;
 
-            long now = System.nanoTime();
-            long length = now - lastLoopTime;
-            lastLoopTime = now;
-            double delta = length / ((double) OPTIMAL_TIME);
+            while (now - lastUpdateTime > TIME_BETWEEN_UPDATES && updateCount < MAX_UPDATES_BEFORE_RENDER) {
+                if (TankGame.getInstance().getStateManager().hasState()) {
+                    TankGame.getInstance().getStateManager().getCurrent().run();
+                }
+                lastUpdateTime += TIME_BETWEEN_UPDATES;
+                updateCount++;
+            }
 
-            tasks.forEach(g -> g.run(delta));
+            if (now - lastUpdateTime > TIME_BETWEEN_UPDATES) {
+                lastUpdateTime = now - TIME_BETWEEN_UPDATES;
+            }
 
-            TankGame.getInstance().render();
+            double delta = Math.min(1.0D, ((now - lastUpdateTime) / TIME_BETWEEN_UPDATES));
+            TankGame.getInstance().render(delta);
+            lastRenderTime = now;
 
-            try {
-                Thread.sleep((lastLoopTime - System.nanoTime() + OPTIMAL_TIME) / 1000000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            while (now - lastRenderTime < TARGET_TIME_BETWEEN_RENDERS && now - lastUpdateTime < TIME_BETWEEN_UPDATES) {
+                Thread.yield();
+
+                try {
+                    Thread.sleep(1);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                now = System.nanoTime();
             }
         }
     }

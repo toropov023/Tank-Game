@@ -1,9 +1,13 @@
 package ca.toropov.games.tank;
 
+import ca.toropov.games.tank.states.GameState;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+@RequiredArgsConstructor
 public abstract class GameTask {
+    public final GameState gameState;
     @Getter
     private int ticks = 0;
     @Getter
@@ -12,7 +16,7 @@ public abstract class GameTask {
     @Getter
     private boolean dead;
 
-    public void run(double delta) {
+    public void run() {
         if (dead) {
             TankGame.getInstance().getLogger().severe("Running a dead game task");
             return;
@@ -24,11 +28,11 @@ public abstract class GameTask {
             lifeTime--;
 
         if (lifeTime == 0) {
-            TankGame.getInstance().getSystemTimer().remove(this);
+            gameState.getTasks().remove(this);
 
         } else
-            tick(delta);
+            tick();
     }
 
-    public abstract void tick(double delta);
+    public abstract void tick();
 }

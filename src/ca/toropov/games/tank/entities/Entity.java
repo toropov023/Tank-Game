@@ -3,6 +3,7 @@ package ca.toropov.games.tank.entities;
 import ca.toropov.games.tank.GameTask;
 import ca.toropov.games.tank.graphics.Sprite;
 import ca.toropov.games.tank.TankGame;
+import ca.toropov.games.tank.states.GameState;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,9 +15,9 @@ public abstract class Entity extends GameTask {
     private double x, y, motX, motY = 0;
     private Sprite sprite;
 
-    public Entity(Sprite sprite) {
+    public Entity(Sprite sprite, GameState state) {
+        super(state);
         this.sprite = sprite;
-        TankGame.getInstance().registerEntity(this);
     }
 
     public void draw(Graphics2D g){
