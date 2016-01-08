@@ -21,8 +21,20 @@ public abstract class Entity extends GameTask {
     }
 
     public void draw(Graphics2D g){
-        if(sprite != null)
-            sprite.draw(g, x, y);
+        if(sprite != null) {
+            sprite.move(x, y);
+            sprite.draw(g);
+        }
+    }
+
+    public void move(double x, double y){
+        this.x = x;
+        this.y = y;
+    }
+
+    public void setSpeed(double x, double y){
+        this.motX = x;
+        this.motY = y;
     }
 
     public void kill() {

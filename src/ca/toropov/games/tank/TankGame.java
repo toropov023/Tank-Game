@@ -5,6 +5,7 @@ import ca.toropov.games.tank.entities.Entity;
 import ca.toropov.games.tank.entities.EntityRegister;
 import ca.toropov.games.tank.states.GameState;
 import ca.toropov.games.tank.states.GameStateManager;
+import ca.toropov.games.tank.states.ShootingState;
 import lombok.Getter;
 
 import java.awt.*;
@@ -42,40 +43,7 @@ public class TankGame {
         displayManager = new DisplayManager("Tank Game");
         stateManager = new GameStateManager();
 
-        //TODO tests
-        GameState state = new GameState() {
-            @Override
-            public void onStart(GameState previous) {
-                TankGame.getInstance().getLogger().info("Test state started!");
-            }
-
-            @Override
-            public void onEnd(GameState next) {
-                TankGame.getInstance().getLogger().info("Test state ended!");
-            }
-
-            @Override
-            public void render(Graphics2D graphics2D, double delta) {
-                TankGame.getInstance().getLogger().info("Test state rendered!");
-            }
-
-            @Override
-            public void run() {
-                super.run();
-                TankGame.getInstance().getLogger().info("Test state ticked!");
-            }
-        };
-
-        state.getTasks().add(new Entity(null, state) {
-            @Override
-            public void tick() {
-                TankGame.getInstance().getLogger().info("Test Game Task is ticked!");
-                this.kill();
-                TankGame.getInstance().getStateManager().endCurrentState();
-            }
-        });
-
-        stateManager.startState(state);
+        stateManager.startState(new ShootingState());
 
         systemTimer.startTicking();
     }
