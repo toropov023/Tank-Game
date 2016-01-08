@@ -18,7 +18,7 @@ public class SpriteLoader {
 
         try {
             //Check if the image is in the jar resources
-            URL url = TankGame.class.getClassLoader().getResource("/resources/" + path);
+            URL url = TankGame.class.getClassLoader().getResource("./" + path);
 
             if (url != null)
                 bufferedImage = ImageIO.read(url);
