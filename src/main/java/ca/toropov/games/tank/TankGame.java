@@ -6,9 +6,11 @@ import ca.toropov.games.tank.entities.EntityRegister;
 import ca.toropov.games.tank.states.GameState;
 import ca.toropov.games.tank.states.GameStateManager;
 import ca.toropov.games.tank.states.ShootingState;
+import ca.toropov.games.tank.utils.KeyRegister;
 import lombok.Getter;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.logging.Logger;
 
 public class TankGame {
@@ -26,6 +28,8 @@ public class TankGame {
     private DisplayManager displayManager;
     @Getter
     private GameStateManager stateManager;
+    @Getter
+    private KeyRegister keyRegister;
 
     public TankGame() {
         instance = this;
@@ -42,6 +46,9 @@ public class TankGame {
         entityRegister = new EntityRegister();
         displayManager = new DisplayManager("Tank Game");
         stateManager = new GameStateManager();
+        keyRegister = new KeyRegister();
+
+        displayManager.getFrame().addKeyListener(keyRegister);
 
         stateManager.startState(new ShootingState());
 

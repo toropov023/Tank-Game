@@ -13,7 +13,7 @@ import java.util.*;
  * Author: toropov
  * Date: 1/6/2016
  */
-public abstract class GameState implements EventListener {
+public abstract class GameState {
     @Getter
     private final Set<GameTask> tasks = new HashSet<>();
     @Getter
@@ -56,11 +56,12 @@ public abstract class GameState implements EventListener {
 
     /**
      * Add a sprite to get rendered on every frame.
-     * @param id Sprite id. Used to refer to it back later on.
+     *
+     * @param id     Sprite id. Used to refer to it back later on.
      * @param sprite {@link Sprite} object
      * @return Either previously allocated sprite with the id or null.
      */
-    public Sprite addSprite(String id, Sprite sprite){
+    public Sprite addSprite(String id, Sprite sprite) {
         return spriteMap.put(id, sprite);
     }
 }
